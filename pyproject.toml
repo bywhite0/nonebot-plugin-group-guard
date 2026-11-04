@@ -1,0 +1,30 @@
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13"]
+build-backend = "uv_build"
+
+[project]
+name = "nonebot-plugin-group-guard"
+version = "1.0.1"
+description = "NoneBot2 群管整合：关键词审批、成员来源统计、极验与算术验证"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE", "src/nonebot_plugin_group_guard/licenses/*.txt"]
+dependencies = [
+    "nonebot2>=2.4.4,<3",
+    "nonebot-adapter-onebot>=2.4.6,<3",
+    "pydantic>=2.12,<3",
+    "httpx>=0.28,<1",
+    "Pillow>=11.3,<14",
+]
+
+[project.optional-dependencies]
+test = ["nonebot2[fastapi]>=2.4.4,<3"]
+
+[project.scripts]
+group-guard-migrate = "nonebot_group_guard_migrate:main"
+
+[tool.uv.build-backend]
+module-name = ["nonebot_plugin_group_guard", "nonebot_group_guard_migrate"]
+source-include = ["tests/**", "docs/approval-rules.md", "scripts/**", "NOTICE.md"]
+source-exclude = ["output/**", ".venv/**", "data/**", ".env", ".env.*", "**/__pycache__/**"]
